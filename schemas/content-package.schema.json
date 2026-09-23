@@ -1,0 +1,242 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Handshake v0.1 content-package",
+  "description": "Wire schema for Handshake v0.1 \"content-package\" messages (SPEC §4): envelope (by reference) plus the type payload. Provisional field shapes are marked in their descriptions.",
+  "allOf": [
+    {
+      "$ref": "envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "required": [
+        "msg_type",
+        "day",
+        "id",
+        "type",
+        "media_files",
+        "caption",
+        "hashtags",
+        "threads_text",
+        "post_order",
+        "platform_targets",
+        "approval_status",
+        "asset_checksums"
+      ],
+      "properties": {
+        "msg_type": {
+          "const": "content-package"
+        },
+        "day": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "media_files": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "caption": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "hashtags": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "threads_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "post_order": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "platform_targets": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "approval_status": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "pending",
+                "approved",
+                "rejected"
+              ]
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "asset_checksums": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "embargo_until": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "unknown": {
+      "type": "object",
+      "required": [
+        "_unknown",
+        "reason"
+      ],
+      "properties": {
+        "_unknown": {
+          "const": true
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "na": {
+      "type": "object",
+      "required": [
+        "_na",
+        "reason"
+      ],
+      "properties": {
+        "_na": {
+          "const": true
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

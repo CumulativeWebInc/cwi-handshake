@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Handshake v0.1 placement-proof",
+  "description": "Wire schema for Handshake v0.1 \"placement-proof\" messages (SPEC §4): envelope (by reference) plus the type payload. Provisional field shapes are marked in their descriptions.",
+  "allOf": [
+    {
+      "$ref": "envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "required": [
+        "msg_type",
+        "playlist_id",
+        "track_id",
+        "claim_status",
+        "observed_at",
+        "evidence_ref",
+        "follow_up_due",
+        "follow_up_ref"
+      ],
+      "properties": {
+        "msg_type": {
+          "const": "placement-proof"
+        },
+        "playlist_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "track_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "claim_status": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "claimed",
+                "verified",
+                "retired"
+              ]
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "observed_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "evidence_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "follow_up_due": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "follow_up_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "confidence": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "unknown": {
+      "type": "object",
+      "required": [
+        "_unknown",
+        "reason"
+      ],
+      "properties": {
+        "_unknown": {
+          "const": true
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "na": {
+      "type": "object",
+      "required": [
+        "_na",
+        "reason"
+      ],
+      "properties": {
+        "_na": {
+          "const": true
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

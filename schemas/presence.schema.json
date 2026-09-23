@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Handshake v0.1 presence",
+  "description": "Wire schema for Handshake v0.1 \"presence\" messages (SPEC §4): envelope (by reference) plus the type payload. Provisional field shapes are marked in their descriptions.",
+  "allOf": [
+    {
+      "$ref": "envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "required": [
+        "msg_type",
+        "agent_urn",
+        "current_task_id",
+        "state"
+      ],
+      "properties": {
+        "msg_type": {
+          "const": "presence"
+        },
+        "agent_urn": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "current_task_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "state": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "active",
+                "idle",
+                "offline"
+              ]
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "unknown": {
+      "type": "object",
+      "required": [
+        "_unknown",
+        "reason"
+      ],
+      "properties": {
+        "_unknown": {
+          "const": true
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "na": {
+      "type": "object",
+      "required": [
+        "_na",
+        "reason"
+      ],
+      "properties": {
+        "_na": {
+          "const": true
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Handshake v0.1 message envelope",
+  "description": "Envelope shared by all 16 Handshake v0.1 message types (SPEC §3). msg_type and version are dispatch-critical: they do NOT accept the uncertainty tag. Unknown fields are REJECTED by the validator (strict dialect, normative); this schema is permissive except for tag objects — see schemas/README.md.",
+  "type": "object",
+  "required": [
+    "msg_id",
+    "msg_type",
+    "version",
+    "sender_urn",
+    "sent_at",
+    "anchor_ref"
+  ],
+  "properties": {
+    "msg_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "$ref": "#/$defs/unknown"
+        },
+        {
+          "$ref": "#/$defs/na"
+        }
+      ]
+    },
+    "msg_type": {
+      "type": "string",
+      "enum": [
+        "approval-request",
+        "benchmark-result",
+        "build-event",
+        "claim",
+        "content-package",
+        "correction-slip",
+        "kill-signal",
+        "placement-proof",
+        "presence",
+        "resource-offer",
+        "resource-request",
+        "result-receipt",
+        "rights-status",
+        "task-handoff",
+        "tool-call",
+        "verdict"
+      ]
+    },
+    "version": {
+      "const": "0.1"
+    },
+    "sender_urn": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/unknown"
+        },
+        {
+          "$ref": "#/$defs/na"
+        }
+      ]
+    },
+    "sent_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "$ref": "#/$defs/unknown"
+        },
+        {
+          "$ref": "#/$defs/na"
+        }
+      ]
+    },
+    "anchor_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/unknown"
+        },
+        {
+          "$ref": "#/$defs/na"
+        }
+      ]
+    },
+    "supersedes": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "$ref": "#/$defs/unknown"
+        },
+        {
+          "$ref": "#/$defs/na"
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "unknown": {
+      "type": "object",
+      "required": [
+        "_unknown",
+        "reason"
+      ],
+      "properties": {
+        "_unknown": {
+          "const": true
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "na": {
+      "type": "object",
+      "required": [
+        "_na",
+        "reason"
+      ],
+      "properties": {
+        "_na": {
+          "const": true
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

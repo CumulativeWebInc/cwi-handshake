@@ -1,0 +1,417 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Handshake v0.1 claim",
+  "description": "Wire schema for Handshake v0.1 \"claim\" messages (SPEC §4): envelope (by reference) plus the type payload. Provisional field shapes are marked in their descriptions.",
+  "allOf": [
+    {
+      "$ref": "envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "required": [
+        "msg_type",
+        "statement",
+        "source",
+        "date",
+        "confidence"
+      ],
+      "properties": {
+        "msg_type": {
+          "const": "claim"
+        },
+        "statement": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "date": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "confidence": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "claim_kind": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "coverage",
+                "candidate-vetting",
+                "observation",
+                "rights-line"
+              ]
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "outlet": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "writer": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "vetting_status": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "pass",
+                "fail",
+                "unverifiable"
+              ]
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "rights_red_flags": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "metric": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "observed_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "verdict_class": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "verified",
+                "estimate"
+              ]
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "status": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "DOCUMENTED",
+                "PENDING"
+              ]
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "assertion_class": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "independently-documented",
+                "self-reported"
+              ]
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "claim_kind": {
+                "const": "coverage"
+              }
+            },
+            "required": [
+              "claim_kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "outlet",
+              "writer",
+              "url",
+              "published_at"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "claim_kind": {
+                "const": "candidate-vetting"
+              }
+            },
+            "required": [
+              "claim_kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "vetting_status",
+              "rights_red_flags"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "claim_kind": {
+                "const": "observation"
+              }
+            },
+            "required": [
+              "claim_kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "metric",
+              "value",
+              "unit",
+              "observed_at",
+              "provenance",
+              "verdict_class"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "claim_kind": {
+                "const": "rights-line"
+              }
+            },
+            "required": [
+              "claim_kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "status",
+              "assertion_class"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "$defs": {
+    "unknown": {
+      "type": "object",
+      "required": [
+        "_unknown",
+        "reason"
+      ],
+      "properties": {
+        "_unknown": {
+          "const": true
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "na": {
+      "type": "object",
+      "required": [
+        "_na",
+        "reason"
+      ],
+      "properties": {
+        "_na": {
+          "const": true
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

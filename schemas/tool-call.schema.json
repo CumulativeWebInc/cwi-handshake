@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Handshake v0.1 tool-call",
+  "description": "Wire schema for Handshake v0.1 \"tool-call\" messages (SPEC §4): envelope (by reference) plus the type payload. Provisional field shapes are marked in their descriptions.",
+  "allOf": [
+    {
+      "$ref": "envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "required": [
+        "msg_type",
+        "tool",
+        "args_hash",
+        "invoked_by",
+        "idempotency_key",
+        "authority_grant",
+        "grant_ledger_ref",
+        "use_bound"
+      ],
+      "properties": {
+        "msg_type": {
+          "const": "tool-call"
+        },
+        "tool": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "args_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "invoked_by": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "idempotency_key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "authority_grant": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "grant_ledger_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        },
+        "use_bound": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "const": "single-use"
+                },
+                {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              ],
+              "$comment": "Validators additionally require a full ISO-8601 timestamp with timezone for the expiry form (format is advisory in JSON Schema)."
+            },
+            {
+              "$ref": "#/$defs/unknown"
+            },
+            {
+              "$ref": "#/$defs/na"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "unknown": {
+      "type": "object",
+      "required": [
+        "_unknown",
+        "reason"
+      ],
+      "properties": {
+        "_unknown": {
+          "const": true
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "na": {
+      "type": "object",
+      "required": [
+        "_na",
+        "reason"
+      ],
+      "properties": {
+        "_na": {
+          "const": true
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handshake v0.1 — typed agent message protocol by Cumulative Web Inc.</title>
+<style>
+  :root { color-scheme: dark; }
+  body { font-family: system-ui, sans-serif; background: #0e0f14; color: #e8e8ee; margin: 0; padding: 2rem; line-height: 1.5; }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  header { display: flex; gap: 1.25rem; align-items: center; margin-bottom: 1.5rem; }
+  header img { width: 96px; height: 96px; border-radius: 50%; }
+  h1 { margin: 0 0 .25rem; } .sub { color: #9a9aa8; }
+  pre { background: #14151c; border: 1px solid #2c2c38; border-radius: 8px; padding: 1rem; overflow-x: auto; font-size: .85rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+  .card { background: #14151c; border: 1px solid #2c2c38; border-radius: 10px; padding: 1rem; }
+  .card h3 { margin: 0 0 .4rem; font-size: 1rem; }
+  .card p { margin: 0; font-size: .85rem; color: #c9c9d6; }
+  ul.files { columns: 2; font-size: .85rem; }
+  footer { margin-top: 2.5rem; color: #9a9aa8; font-size: .8rem; }
+  a { color: #7fd4ff; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <img src="logo.jpg" alt="Cumulative Web Inc. logo">
+  <div>
+    <h1>Handshake v0.1</h1>
+    <div class="sub">The typed agent message protocol. Every conversation starts with one. A Cumulative Web Inc. product.</div>
+  </div>
+</header>
+
+<p><strong>16 wire types</strong> (claim, approval-request, presence, placement-proof, kill-signal, …),
+<strong>strict typed JSON</strong> (unknown fields rejected), <strong>RFC 8785 canonicalization</strong>
+byte-identical across <strong>JavaScript and Python</strong> zero-dependency validators. Validators are normative over schemas.</p>
+
+<h2>Try it</h2>
+<pre>git clone https://github.com/CumulativeWebInc/cwi-handshake.git
+cd cwi-handshake
+# JavaScript
+node -e "import('./validators/js/validate.js').then(v => console.log(v.validate(JSON.parse(require('fs').readFileSync('examples/claim.json')))))"
+# Python
+cd validators/py && python3 -c "
+from validate import validate
+import json
+print(validate(json.load(open('../../examples/claim.json'))))"   # {'ok': True}</pre>
+
+<div class="grid">
+  <div class="card"><h3>schemas/ — 17 JSON Schemas</h3><p>Envelope + all 16 message types. Machine-readable contract.</p></div>
+  <div class="card"><h3>validators/js + validators/py</h3><p>Zero-dependency validators + canonicalization. 215 checks green.</p></div>
+  <div class="card"><h3>examples/ — 16 worked messages</h3><p>One valid example per type, validator-pinned.</p></div>
+  <div class="card"><h3>spec/ — SPEC-v0.1.md</h3><p>The full wire spec, trade-offs, and recorded dissent.</p></div>
+</div>
+
+<h2>Files</h2>
+<ul class="files">
+  <li><a href="spec/SPEC-v0.1.md">spec/SPEC-v0.1.md</a> — the wire spec</li>
+  <li><a href="schemas/">schemas/</a> — 17 JSON Schemas</li>
+  <li><a href="validators/js/validate.js">validators/js/validate.js</a> + <a href="validators/js/canonical.js">canonical.js</a></li>
+  <li><a href="validators/py/validate.py">validators/py/validate.py</a> + <a href="validators/py/canonical.py">canonical.py</a></li>
+  <li><a href="examples/">examples/</a> — 16 worked messages</li>
+  <li><a href="COST-CEILING.md">COST-CEILING.md</a> — measured cost ceiling (0.0087 ms/msg Node)</li>
+</ul>
+
+<p><strong>Honest limits.</strong> v0.1 is the protocol + validators. The external tester kit is deliberately held
+until the internal dogfood gate (≥80% of CWI agent traffic on Handshake within 14 days) closes. Merkle batch
+sealing + EAS off-chain anchoring ship with the protocol in the full build tree.</p>
+
+<footer>
+  Built by Cumulative Web Inc. · Contact: <a href="mailto:hp@cumulativeweb.com">hp@cumulativeweb.com</a><br>
+  © 2026 Cumulative Web Inc. Free to use with attribution; commercial licensing via hp@cumulativeweb.com.
+</footer>
+</div>
+</body>
+</html>

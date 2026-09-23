@@ -1,0 +1,22 @@
+{
+ "acceptance_criteria": "Verify whether WATCH THA GAP VOL.5 placed the track; if placed, record playlist id, position, and evidence URL. If no reply within 72h, send the owed nudge.",
+ "anchor_ref": "pending",
+ "deadline": "2026-09-23T17:00:00.000Z",
+ "from_urn": "agent:MUSE_CWI",
+ "kill_rule": "No verified placement or curator reply by 2026-09-27 \u2192 close the thread, log the miss, move on.",
+ "mechanism": "IG DM from @lanskyblack in the original 9/14 thread (the channel of first contact).",
+ "msg_id": "91b00d44-71bd-447f-afde-c5b4fdd12d82",
+ "msg_type": "task-handoff",
+ "result": {
+  "_unknown": true,
+  "reason": "curator has not replied yet; thread is in waiting-on-reply"
+ },
+ "review_date": "2026-09-23T18:00:00.000Z",
+ "run_context_ref": "memory:curator-threads/watch-tha-gap-2026-09-20",
+ "sender_urn": "agent:MUSE_CWI",
+ "sent_at": "2026-09-20T08:15:00.000Z",
+ "task_id": "tsk_20260920_watchthagap",
+ "to_urn": "agent:CWI_Radio",
+ "verification": "playlist sweep scan of the curator's public playlists + curator's own reply link",
+ "version": "0.1"
+}
